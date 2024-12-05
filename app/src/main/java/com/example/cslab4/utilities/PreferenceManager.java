@@ -2,12 +2,18 @@ package com.example.cslab4.utilities;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/**
+ * Utility class for managing shared preferences in the application.
+ * Provides methods for storing and retrieving various types of data
+ * using Android's SharedPreferences API.
+ */
 public class PreferenceManager {
     private final SharedPreferences sharedPreferences;
 
 
     /**
      * Constructor that initializes SharedPreferences with the application context.
+     * Uses a predefined preference name from Constants class.
      *
      * @param context The application context used to get SharedPreferences instance
      */
@@ -17,6 +23,7 @@ public class PreferenceManager {
 
     /**
      * Stores a boolean value in SharedPreferences.
+     * Uses apply() for asynchronous storage.
      *
      * @param key The key under which the value will be stored
      * @param value The boolean value to be stored

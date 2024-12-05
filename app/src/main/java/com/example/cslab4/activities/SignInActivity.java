@@ -22,20 +22,25 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
+/**
+ * SignInActivity handles user authentication and login functionality.
+ * Manages the sign-in process using Firebase authentication and provides
+ * navigation to sign-up for new users. Implements input validation and
+ * user feedback through the UI.
+ */
 public class SignInActivity extends AppCompatActivity {
 
     private ActivitySignInBinding binding;
     private PreferenceManager preferenceManager;
 
 
-    /**
-     * Initializes the activity, sets up view binding and preference manager.
-     * Also configures the initial UI state and sets up event listeners.
-     *
-     * @param savedInstanceState
-     *
-     */
 
+    /**
+     * Initializes the sign-in activity and sets up the user interface.
+     * Configures view binding, preference manager, and establishes UI event listeners.
+     *
+     * @param savedInstanceState Bundle containing the activity's previously saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,13 +60,15 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     /**
-     * Sets up click listeners for the sign-in button and create new account text.
-     * The sign-in button triggers validation before attempting sign-in,
-     * while the create account text launches the SignUpActivity.
+     * Configures click listeners for interactive UI elements.
+     * Handles navigation to sign-up screen and initiates sign-in process
+     * after validation.
      */
     private void setListeners(){
+        // Navigate to sign-up screen
         binding.textCreateNewAccount.setOnClickListener(v ->
                 startActivity(new Intent(getApplicationContext(), SignUpActivity.class)));
+        // Attempt sign-in with validation
         binding.buttonSignIn.setOnClickListener(v -> {
             if(isValidateSignInDetails()){
                 SignIn();
@@ -70,7 +77,7 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     /**
-     * Displays a short duration toast message to the user.
+     * Displays a toast notification to provide user feedback.
      *
      * @param message The text message to be displayed in the toast
      */
@@ -79,35 +86,36 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     /**
-     * Handles the sign-in process using Firebase authentication.
-     * Queries Firestore for matching email and password,
-     * stores user data in preferences if successful,
-     * and launches MainActivity.
-     * Shows error message if sign-in fails.
+     * Executes the sign-in process using Firebase authentication.
+     * Queries Firestore to verify user credentials and stores user data in preferences
+     * upon successful authentication. Handles error cases and provides appropriate feedback.
+     * Upon successful sign-in, launches MainActivity and clears the activity stack.
      */
     private void SignIn() {
-        loading(true);
+        loading(true); // Show loading indicator
         FirebaseFirestore database = FirebaseFirestore.getInstance();
 
+        // Query Firestore for matching credentials
         database.collection(Constants.KEY_COLLECTION_USERS)
-                .whereEqualTo(Constants.KEY_EMAIL, binding.inputEmail.getText().toString())
-                .whereEqualTo(Constants.KEY_PASSWORD, binding.inputPassword.getText().toString())
+                .whereEqualTo(Constants.KEY_EMAIL,binding.inputEmail.getText().toString())
+                .whereEqualTo(Constants.KEY_PASSWORD,binding.inputPassword.getText().toString())
                 .get()
                 .addOnCompleteListener(task -> {
-                    if(task.isSuccessful() && task.getResult()!=null && task.getResult().getDocuments().size()>0) {
+                    if(task.isSuccessful() && task.getResult()!=null && task.getResult().getDocuments().size()>0){
+                        // Retrieve user document
                         DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
-                        preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
-                        preferenceManager.putString(Constants.KEY_USER_ID, documentSnapshot.getId());
-                        preferenceManager.putString(Constants.KEY_FNAME, documentSnapshot.getString(Constants.KEY_FNAME));
-                        preferenceManager.putString(Constants.KEY_IMAGE, documentSnapshot.getString(Constants.KEY_IMAGE));
-
-                        // added a successful toast message upon sign in before starting MainActivity
-                        showToast("Successfully signed in");
-
+                        // Store user data in preferences
+                        preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN,true);
+                        preferenceManager.putString(Constants.KEY_USER_ID,documentSnapshot.getId());
+                        preferenceManager.putString(Constants.KEY_FNAME,documentSnapshot.getString(Constants.KEY_FNAME));
+                        preferenceManager.putString(Constants.KEY_LNAME,documentSnapshot.getString(Constants.KEY_LNAME));
+                        preferenceManager.putString(Constants.KEY_IMAGE,documentSnapshot.getString(Constants.KEY_IMAGE));
+                        // Launch MainActivity
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        showToast("Successful Log In");
                         startActivity(intent);
-                    } else {
+                    } else{
                         loading(false);
                         showToast("Unable to Sign in");
                     }
@@ -115,8 +123,9 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     /**
-     * Controls the visibility of the progress bar and sign-in button
-     * to indicate loading state.
+     * Controls the visibility of UI elements during loading states.
+     * Toggles between showing/hiding the progress bar and sign-in button
+     * based on the loading state.
      *
      * @param isLoading true to show loading state, false to show normal state
      */
@@ -131,8 +140,12 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     /**
-     * Validates the user input for email and password.
-     * Checks for empty fields and proper email format.
+     * Validates user input for the sign-in form.
+     * Checks for:
+     * - Empty email field
+     * - Valid email format using Android Patterns
+     * - Empty password field
+     * Provides appropriate feedback messages for validation failures.
      *
      * @return true if all inputs are valid, false otherwise
      */
@@ -150,5 +163,4 @@ public class SignInActivity extends AppCompatActivity {
             return true;
         }
     }
-
 }
