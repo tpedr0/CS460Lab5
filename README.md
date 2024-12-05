@@ -65,8 +65,52 @@ A real-time chat application built with Android and Firebase. This app allows us
 
 ---
 
-## Dependencies
+# Screenshots
 
+## Chat Interface
+### Chat View - User 1 Perspective
+<img src="screenshots/chatViewUser1.png" alt="Chat View - User 1 Perspective" width="300"/>
+
+### Chat View - User 2 Perspective
+<img src="screenshots/chatViewUser2.png" alt="Chat View - User 2 Perspective" width="300"/>
+
+## App Features
+### Custom Icon Implementation
+<img src="screenshots/customIcon.png" alt="Custom Icon Implementation" width="300"/>
+
+### Firebase Integration
+#### Firebase Chat Entry
+<img src="screenshots/firebaseChatEntry.png" alt="Firebase Chat Entry" width="600"/>
+
+#### Firebase User Entry
+<img src="screenshots/firebaseUserEntry.png" alt="Firebase User Entry" width="600"/>
+
+## User Interface
+### Home Page
+<img src="screenshots/homePage.png" alt="Home Page" width="300"/>
+
+### User Authentication
+#### New User Successful Login
+<img src="screenshots/newUserSuccessfulLogin.png" alt="New User Successful Login" width="300"/>
+
+#### Profile Creation
+<img src="screenshots/profileCreation.png" alt="Profile Creation" width="300"/>
+
+#### Sign Out Toast
+<img src="screenshots/signOutToast.png" alt="Sign Out Toast" width="300"/>
+
+### Messaging Features
+#### Text Message Field
+<img src="screenshots/textMessageField.png" alt="Text Message Field" width="300"/>
+
+#### Text Message Functionality
+<img src="screenshots/textMessageFunctionality.png" alt="Text Message Functionality" width="300"/>
+
+#### User List
+<img src="screenshots/userList.png" alt="User List" width="300"/>
+
+---
+## Dependencies
 Some Gradle dependencies:
 ```groovy
 dependencies {
@@ -110,66 +154,3 @@ app/
 │   └── xml/
 └── build.gradle.kts
 
-# Screenshots
-
-Here are some screenshots showcasing the functionality and design of the application:
-
----
-
-### 1. Chat View - User 1 Perspective
-![Chat View - User 1 Perspective](screenshots/chatViewUser1.png)
-
----
-
-### 2. Chat View - User 2 Perspective
-![Chat View - User 2 Perspective](screenshots/chatViewUser2.png)
-
----
-
-### 3. Custom Icon Implementation
-![Custom Icon Implementation](screenshots/customIcon.png)
-
----
-
-### 4. Firebase Chat Entry
-![Firebase Chat Entry](screenshots/firebaseChatEntry.png)
-
----
-
-### 5. Firebase User Entry
-![Firebase User Entry](screenshots/firebaseUserEntry.png)
-
----
-
-### 6. Home Page
-![Home Page](screenshots/homePage.png)
-
----
-
-### 7. New User Successful Login
-![New User Successful Login](screenshots/newUserSuccesfulLogin.png)
-
----
-
-### 8. Profile Creation
-![Profile Creation](screenshots/profileCreation.png)
-
----
-
-### 9. Sign Out Toast
-![Sign Out Toast](screenshots/signOutToast.png)
-
----
-
-### 10. Text Message Field
-![Text Message Field](screenshots/textMessageField.png)
-
----
-
-### 11. Text Message Functionality
-![Text Message Functionality](screenshots/textMessageFunctionality.png)
-
----
-
-### 12. User List
-![User List](screenshots/userList.png)
